@@ -11,13 +11,13 @@ const signup = async (formData) => {
     });
     const json = await res.json();
 
-  //  if (json.token) {
-  //    localStorage.setItem("token", json.token); // add this line to store the JWT token in localStorage
+   if (json.token) {
+     localStorage.setItem("token", json.token); // add this line to store the JWT token in localStorage
 
-  //    const user = JSON.parse(atob(json.token.split(".")[1]));
+     const user = JSON.parse(atob(json.token.split(".")[1]));
 
-  //    return user;
-  //  }
+     return user;
+   }
     if (json.err) {
       throw new Error(json.err);
     }
