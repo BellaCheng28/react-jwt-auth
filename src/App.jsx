@@ -1,14 +1,15 @@
 // App.jsx
 
-import { useState } from "react";
+import { createContext, useState } from 'react' // add createContext
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
 import SignupForm from "./components/SignupForm/SignupForm"; 
 import SigninForm from "./components/SigninForm/SigninForm";
-import * as authService from '../src/services/authService'; // import the authservice
+import * as authService from '../src/services/authService'; // 
 
+export const AuthedUserContext = createContext(null); // set the initial value of the context to null
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
@@ -19,7 +20,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <AuthedUserContext.Provider value={user}>
       <NavBar user={user} handleSignout={handleSignout} />
       <Routes>
         {user ? (
@@ -30,7 +31,7 @@ const App = () => {
         <Route path="/signup" element={<SignupForm setUser={setUser} />} />
         <Route path="/signin" element={<SigninForm setUser={setUser} />} />
       </Routes>
-    </>
+    </AuthedUserContext.Provider>
   );
 };
 
