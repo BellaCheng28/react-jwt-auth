@@ -21,10 +21,10 @@ const App = () => {
 
   return (
     <AuthedUserContext.Provider value={user}>
-      <NavBar user={user} handleSignout={handleSignout} />
+      <NavBar handleSignout={handleSignout} />
       <Routes>
         {user ? (
-          <Route path="/" element={<Dashboard user={user} />} />
+          <Route path="/" element={<Dashboard />} />
         ) : (
           <Route path="/" element={<Landing />} />
         )}
